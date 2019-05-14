@@ -1,0 +1,29 @@
+q1.m
+f=imread('test4.bmp');
+g=edge(f,'sobel');
+g1=edge(f,'prewitt');
+g2=edge(f,'canny');
+subplot 221
+imshow(f)
+title('原图像')
+subplot 222
+imshow(g)
+title('sobel处理结果')
+subplot 223
+imshow(g1)
+title('prewitt处理结果')
+subplot 224
+imshow(g2)
+title('canny处理结果')
+q2.m
+f=imread('test5.png');
+g=double(f);
+g=edge(g,'sobel');
+[H,theta,rho]=hough(g,'RhoResolution',0.5,'Theta',-60:0.5:30);
+peaks=houghpeaks(H,100);
+lines=houghlines(g,theta,rho,peaks);
+figure, imshow(f); hold on
+for k=1:length(lines)
+    line=[lines(k).point1;lines(k).point2];
+    plot(line(:,1),line(:,2),'LineWidth',1,'Color','c');
+end
